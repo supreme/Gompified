@@ -66,7 +66,13 @@ for item in dates: # <class 'bs4.element.Tag'>
             event_list.errors.append('Missing image for event: {}'.format(name))
         event = Event(name, time, organization, img)
         event_list.events.append(event)
-    print(json.dumps({'results': event_list.to_json()}, indent=4, sort_keys=True))
+    calendar.append(event_list.to_json())
+
+# Write out file
+with open('events.json', 'w') as f:
+    f.write(json.dumps(calendar, indent=4, sort_keys=True))
+    f.close()
+print('Wrote events.json')
 
 browser.close()
 
